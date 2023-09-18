@@ -109,10 +109,34 @@ def CriarTexto(Local,Linha,Coluna,Texto,Largura=0,Altura=0):
         caixatxt.configure(height=Altura)
     return caixatxt
 
+
 #---------------Imagem---------------
-def CriarImagem(Local,Caminho,Linha, Coluna,Altura,Largura):
+def CriarImagem(Local,Caminho,Linha,Coluna,Altura,Largura):
     imagem_pillow = Image.open(Caminho)
     imageTk = Tk.CTkImage(imagem_pillow,size=[Largura,Altura])
     imagem = Tk.CTkLabel(Local, image=imageTk, text= '')
     imagem.grid(row=Linha, column =Coluna)
     return imagem
+
+
+#Criar um Frame
+def CriarFrame(Local, Largura, Altura, Linha, Coluna):
+    frame = Tk.CTkFrame(Local, width=Largura, height=Altura)
+    frame.grid(row=Linha, column=Coluna)
+    tamanho = list(range(13))
+    frame.grid_columnconfigure(tamanho, weight=1)
+    frame.grid_rowconfigure(tamanho, weight=1)
+    frame.grid_propagate(False)
+    return frame
+
+
+#Criar Abas
+def CriarAba(Local, Largura, Altura, Linha, Coluna, *Abas):
+    abas = Tk.CTkTabview(Local, width=Largura, height=Altura)
+    for C in Abas:
+        abas.add(C)
+        tamanho = list(range(13))
+        abas.tab(C).grid_columnconfigure(tamanho, weight=1)
+        abas.tab(C).grid_rowconfigure(tamanho, weight=1)
+    abas.grid(row=Linha, column=Coluna)
+    return abas
